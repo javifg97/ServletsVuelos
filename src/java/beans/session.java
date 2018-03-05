@@ -5,10 +5,12 @@
  */
 package beans;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,4 +27,18 @@ public class session {
     public List findAll() {
         return emf.createEntityManager().createNamedQuery("Vuelos.findAll").getResultList();
     }
+    
+    
+    public List findByCriteria(String origen,String destino,String fecha){
+        
+        
+        Query query = emf.createEntityManager().createNamedQuery("Vuelos.findByTodo");
+        query.setParameter("diayhora", fecha);
+        query.setParameter("origen", origen);
+        query.setParameter("destino", destino);
+        return query.getResultList();
+        
+        
+    }
+
 }
